@@ -1,0 +1,21 @@
+.searchBlock {
+    margin-left: 50px;
+    position: relative;
+}
+.searchBlock input {
+    padding: 8px;
+    padding-left: 35px;
+    width: 300px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.searchBlock input:focus {
+    outline: none;
+}
+.searchIcon {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: #ddd;
+}

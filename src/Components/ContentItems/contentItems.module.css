@@ -1,0 +1,22 @@
+.itemCard {
+    width: 22%;
+    opacity: 0.85;
+}
+.itemCard img {
+    width: 100%;
+}
+.colorSquare {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.colorSquareContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.brand {
+    font-weight: 700;
+}

@@ -1,0 +1,13 @@
+.headerIconsBlock {
+    display: flex;
+    color: #ccbb44;
+    flex-grow: 2;
+    justify-content: flex-end;
+}
+.headerIconsBlock span {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+.headerIconsBlock span svg {
+    font-size: 30px;
+}

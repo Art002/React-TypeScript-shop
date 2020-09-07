@@ -1,0 +1,18 @@
+.itemCard {
+    width: 18%;
+    opacity: 0.85;
+}
+.itemCard img {
+    width: 100%;
+}
+.header {
+    margin-top: 5px; 
+    padding: 4px;
+}
+.header:active {
+    border: 2px dashed #ccbb44;
+}
+.clicked {
+    border: 3px dashed #ccbb44;
+    box-sizing: border-box;
+}
