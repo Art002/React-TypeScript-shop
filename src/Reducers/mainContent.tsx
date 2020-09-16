@@ -1,8 +1,12 @@
 import { ActionsType } from './../Reducers/rootReducers';
 
+export type ColorsType = {
+    eng: string
+    ru: string
+}
 export type ClothingItemType = {
     brand: string,
-    color: Array<string>,
+    color: Array<ColorsType>,
     description: string,
     gender: string,
     id: string,
@@ -44,6 +48,11 @@ switch(action.type){
         return {
             ...state,
             filteredClothing: [...state.clothing]
+        }
+    case 'SEARCH_HANDLER':
+        return {
+            ...state,
+            filteredClothing: state.clothing.filter((item) => item.description.toLowerCase().includes(action.value.toLowerCase()) )
         }
     default:
         return state

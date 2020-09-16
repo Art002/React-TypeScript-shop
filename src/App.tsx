@@ -11,6 +11,7 @@ import Profile from './Containers/Profile/profile';
 import Slider from './Components/Slider/slider';
 import Preloder from './Components/Loading/loading';
 import ItemPage from './Containers/ItemPage/itemPage';
+import Login from './Containers/Login/login';
 import { isLoadedData } from './Selectors/selectors';
 import { getClothing, getCategories } from './Actions/actions';
 import { RootState, ActionsType } from './Reducers/rootReducers';
@@ -33,6 +34,7 @@ const App: FC<AppPropsType> = ({getClothing, getCategories, isLoaded}) => {
   useEffect(() => {
     getCategories()
   }, [])
+  const isLogedIn = localStorage.getItem('id')
   return (
     !isLoaded 
     ? <Preloder /> 
@@ -43,7 +45,8 @@ const App: FC<AppPropsType> = ({getClothing, getCategories, isLoaded}) => {
         <Route exact path='/' component={Content}/>
         <Route exact path='/:id' component={ItemPage}/>
         <Route path='/cart' component={Cart}/>
-        <Route path='/profile' component={Profile}/>      
+        <Route path='/profile' component={Profile}/>
+        <Route path='/login' component={Login}/>     
       </div> 
   )
 }

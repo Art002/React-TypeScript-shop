@@ -3,11 +3,14 @@ import Input from './../Input/input';
 import SearchIcon from '@material-ui/icons/Search';
 import classes from './search.module.css';
 
-const Search: FC = () => {
+type SearchPropsType = {
+    searchHandler: (e: any) => void
+}
+const Search: FC<SearchPropsType> = ({ searchHandler }) => {
     return (
         <div className={classes.searchBlock}>
             <SearchIcon className={classes.searchIcon}/>
-            <Input type='search' placeholder='Search for Clothes'/>
+            <Input type='search' placeholder='Search for Clothes' changeHandler={searchHandler}/>
         </div>
     )
 }

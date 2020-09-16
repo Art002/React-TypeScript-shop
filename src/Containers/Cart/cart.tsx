@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { InputNumber } from 'antd';
+import { ThunkDispatch } from 'redux-thunk';
+import { InputNumber, Button  } from 'antd';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { RootState, ActionsType } from './../../Reducers/rootReducers';
 import { inCartData } from './../../Selectors/selectors';
 import { InCartType } from './../../Reducers/cart';
-import { actions } from './../../Actions/actions';
+import { actions, saveUsersOrder } from './../../Actions/actions';
 import classes from './cart.module.css'; 
 
 type MapStatePropsType = {
@@ -13,11 +14,13 @@ type MapStatePropsType = {
 }
 type MapDispatchPropsType = {
     countChangeHandler: (val: number|string|undefined, i: number, price: number) => void
+    removeFromCart: (id: string) => void
+    saveUsersOrder: () => void
 }
 type CartPropsType = MapStatePropsType & MapDispatchPropsType
-const Cart: FC<CartPropsType> = ({ inCartData, countChangeHandler }) => {
+const Cart: FC<CartPropsType> = ({ inCartData, countChangeHandler, removeFromCart, saveUsersOrder }) => {
     const totalArray: Array<number> = []
-    const cartData = inCartData.map(({ description, price, currentColor, currentSize, sum, count }, i) => {
+    const cartData = inCartData.map(({ description, price, currentColor, currentSize, sum, count, id }, i) => {
         totalArray.push(sum) 
         return (
             <div className={classes.orderItem} key={description + i}>
@@ -26,6 +29,8 @@ const Cart: FC<CartPropsType> = ({ inCartData, countChangeHandler }) => {
                     <div className={classes.imgBlockInfo}>
                         <div className={classes.imgBlockInfoName}>
                             {description}
+                            <br/>
+                            <div className={classes.colorBlock}>Цвет: {currentColor}</div>
                         </div>
                         <div className={classes.imgBlockInfoPrice}>
                             Цена: {price}
@@ -43,6 +48,9 @@ const Cart: FC<CartPropsType> = ({ inCartData, countChangeHandler }) => {
                 <div className={classes.sumBlock}>
                     <span>{sum}</span>
                 </div>
+                <div className={classes.delete}>
+                    <HighlightOffIcon onClick={() => removeFromCart(id)} className={classes.deleteIcon}/>
+                </div>
             </div>
        ) 
     })
@@ -58,6 +66,12 @@ const Cart: FC<CartPropsType> = ({ inCartData, countChangeHandler }) => {
                 <div className={classes.total}>
                     Итого:<br/>
                     {total} грн.
+                    <Button type="default" 
+                            size='large' 
+                            className={classes.confirmButton}
+                            onClick={saveUsersOrder}>
+                                Заказать
+                    </Button>
                 </div>
             </>
             :<div className={classes.empty}>Корзина пустая</div>}
@@ -71,9 +85,11 @@ const MapStateToProps = (state: RootState): MapStatePropsType => {
         inCartData: inCartData(state)
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, ActionsType>) => {
     return {
-        countChangeHandler: (val: number|string|undefined, i: number, price: number) => dispatch(actions.countChangeHandler(val, i, price))
+        countChangeHandler: (val: number|string|undefined, i: number, price: number) => dispatch(actions.countChangeHandler(val, i, price)),
+        removeFromCart: (id: string) => dispatch(actions.removeFromCart(id)),
+        saveUsersOrder: () => dispatch(saveUsersOrder())
     }
 } 
 export default connect(MapStateToProps, mapDispatchToProps)(Cart)

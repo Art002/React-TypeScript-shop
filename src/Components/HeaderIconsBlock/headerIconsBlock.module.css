@@ -7,7 +7,19 @@
 .headerIconsBlock span {
     margin-left: 6px;
     margin-right: 6px;
+    position: relative;
 }
 .headerIconsBlock span svg {
     font-size: 30px;
+}
+.inCartLength {
+    position: absolute;
+    top: 0;
+    left: 11px;
+    color: #000000;
+    font-weight: 700;
+    font-size: 16px;
+}
+a {
+    color: #ccbb44;
 }

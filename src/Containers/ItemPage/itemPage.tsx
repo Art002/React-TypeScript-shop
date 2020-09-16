@@ -19,7 +19,8 @@ type MapDispatchPropsType = {
     addToCart: (description: string, 
                 price: number, 
                 currentColor: string, 
-                currentSize: string) => void
+                currentSize: string,
+                id: string) => void
 }
 type MapStatePropsType = {
     clothing: Array<ClothingItemType>
@@ -27,16 +28,16 @@ type MapStatePropsType = {
 type ItemPagePropsType = MapStatePropsType & TransportPageRouterProps & MapDispatchPropsType
 
 const ItemPage: FC<ItemPagePropsType> = ({ match, clothing, addToCart }) => {
-    const [currentColor, setColor] = useState('grey')
+    const [currentColor, setColor] = useState('Серый')
     const [currentSize, setSize] = useState('m')
     const itemInfo = clothing.map(({ id, description, brand, price, color, size }, i) => {
         if(id === match.params.id){
-            const colorPicker = color.map((item, i) => {
-                return <div key={item + i} 
-                            style={{background: `${item}`}} 
+            const colorPicker = color.map(({ eng, ru }, i) => {
+                return <div key={eng + i} 
+                            style={{background: `${eng}`}} 
                             className={classes.colorSquare}
-                            id={item}
-                            onClick={() => setColor(item)}
+                            id={eng}
+                            onClick={() => setColor(ru)}
                         ></div>
             })
             const sizePicker = size.map((item) => {
@@ -60,10 +61,10 @@ const ItemPage: FC<ItemPagePropsType> = ({ match, clothing, addToCart }) => {
                         <div className={classes.sizePickerBlock}>Выберите размер: {sizePicker}</div>
                         <div className={classes.descriptionBlockItem}>Цена: {price}</div>
                         <div className={classes.descriptionBlockItem}>
-                            <NavLink to='/cart'>
+                            <NavLink to='cart'>
                                 <Button className={classes.addToCartBtn}
                                         size='large' 
-                                        onClick={() => addToCart(description, price, currentColor, currentSize)}>
+                                        onClick={() => addToCart(description, price, currentColor, currentSize, id)}>
                                             <ShoppingCartOutlinedIcon/>
                                             Добавить в корзину
                                 </Button>
@@ -91,7 +92,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
         addToCart: (description: string, 
                     price: number, 
                     currentColor: string, 
-                    currentSize: string) => dispatch(actions.addToCart(description, price, currentColor, currentSize))
+                    currentSize: string,
+                    id: string) => dispatch(actions.addToCart(description, price, currentColor, currentSize, id))
     }
 } 
 

@@ -67,3 +67,17 @@
     font-weight: 500;
     font-size: 18px;
 }
+.colorBlock {
+    font-weight: 400;
+    margin-top: 10px;
+}
+.deleteIcon {
+    color: grey;
+    cursor: pointer;
+}
+.confirmButton {
+    background: #ccbb44;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 15px;
+}

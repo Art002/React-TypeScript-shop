@@ -7,6 +7,7 @@ export type InCartType = {
     currentColor: string
     currentSize: string
     sum: number
+    id: string
 }
 type InitialStateType = {
     inCart: Array<InCartType>
@@ -28,7 +29,8 @@ switch(action.type){
                 currentColor: action.currentColor,
                 currentSize: action.currentSize,
                 count: action.count,
-                sum: action.sum
+                sum: action.sum,
+                id: action.id
             }]
         }
     case 'QUANTITY_CHANGE':
@@ -43,6 +45,10 @@ switch(action.type){
                 }
                 return item
             })
+        }
+    case 'REMOVE_FROM_CART':
+        return {
+            inCart: state.inCart.filter((item) => item.id !== action.id)
         }
     default:
         return state
