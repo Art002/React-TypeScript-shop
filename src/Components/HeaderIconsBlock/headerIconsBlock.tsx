@@ -7,22 +7,30 @@ import classes from './headerIconsBlock.module.css';
 
 type HeaderIconsBlockPropsType = {
     inCartLength: number
+    likesCountLength: number
     isLoggedIn: string
 }
-const HeaderIconsBlock: FC<HeaderIconsBlockPropsType> = ({ inCartLength, isLoggedIn }) => {
+const HeaderIconsBlock: FC<HeaderIconsBlockPropsType> = ({ inCartLength, isLoggedIn, likesCountLength }) => {
     return (
         <div className={classes.headerIconsBlock}>
             <NavLink to={isLoggedIn}>
                 <span><PersonIcon /></span>
             </NavLink>
-            <span><FavoriteBorderIcon /></span>
             <span>
-                <NavLink to='/cart'>
-                    <div className={classes.inCartLength}>
-                        {inCartLength}
-                    </div>
-                    <ShoppingCartOutlinedIcon />
-                </NavLink>
+            <NavLink to='/liked'>
+                <div className={classes.inCartLength}>
+                    {likesCountLength}
+                </div>
+                <FavoriteBorderIcon />
+            </NavLink>
+            </span>
+            <span>
+            <NavLink to='/cart'>
+                <div className={classes.inCartLength}>
+                    {inCartLength}
+                </div>
+                <ShoppingCartOutlinedIcon />
+            </NavLink>
             </span>
         </div>
     )

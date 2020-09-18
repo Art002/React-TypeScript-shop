@@ -12,6 +12,7 @@ import Slider from './Components/Slider/slider';
 import Preloder from './Components/Loading/loading';
 import ItemPage from './Containers/ItemPage/itemPage';
 import Login from './Containers/Login/login';
+import likedItems from './Containers/Liked/liked';
 import { isLoadedData } from './Selectors/selectors';
 import { getClothing, getCategories } from './Actions/actions';
 import { RootState, ActionsType } from './Reducers/rootReducers';
@@ -46,7 +47,8 @@ const App: FC<AppPropsType> = ({getClothing, getCategories, isLoaded}) => {
         <Route exact path='/:id' component={ItemPage}/>
         <Route path='/cart' component={Cart}/>
         <Route path='/profile' component={Profile}/>
-        <Route path='/login' component={Login}/>     
+        <Route path='/login' component={Login}/>
+        <Route path='/liked' component={likedItems}/>     
       </div> 
   )
 }

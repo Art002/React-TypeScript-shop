@@ -1,22 +1,17 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import classNames from 'classnames/bind';
 import { ColorsType } from './../../Reducers/mainContent';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import classes from './contentItems.module.css';
+import classes from './likedItems.module.css';
 
-let cx = classNames.bind(classes);
-type ContentItemsType = {
+type LikedItemsType = {
     brand: string
     color: Array<ColorsType>
     description: string
     price: number
     id: string
-    liked: boolean
-    changeLikeStatus: (id: string) => void
 }
 
-const ContentItems: FC<ContentItemsType> = ({ brand, color, description, price, id, changeLikeStatus, liked }) => {
+const LikedItems: FC<LikedItemsType> = ({ brand, color, description, price, id }) => {
     const colorPicker = color.map(({ eng, ru }, i) => {
         return <div key={eng + i} 
                     style={{background: `${eng}`}} 
@@ -25,7 +20,6 @@ const ContentItems: FC<ContentItemsType> = ({ brand, color, description, price, 
     })
     return (
         <div className={classes.itemCard}>
-            <FavoriteBorderIcon className={cx({'liked': liked}, classes.itemCardLike)} onClick={() => changeLikeStatus(id)} />
             <NavLink to={`/${id}`}>
                 <img src={require(`./../../Images/male.jpg`)} alt={description}/>
             </NavLink>
@@ -37,4 +31,4 @@ const ContentItems: FC<ContentItemsType> = ({ brand, color, description, price, 
     )
 }
 
-export default ContentItems
+export default LikedItems

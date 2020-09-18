@@ -1,27 +1,31 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import { RootState } from './../../Reducers/rootReducers';
+import { Dispatch } from 'redux';
+import { RootState, ActionsType } from './../../Reducers/rootReducers';
 import { filteredClothingData } from './../../Selectors/selectors';
 import { ClothingItemType } from './../../Reducers/mainContent';
 import ContentItems from './../../Components/ContentItems/contentItems';
+import { actions } from './../../Actions/actions';
 import classes from './content.module.css';
 
 type MapDispatchToPropsType = {
-    
+    changeLikeStatus: (id: string) => void
 }
 type MapStateToPropsType = {
     filteredClothing: Array<ClothingItemType>
 }
 type ContentPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-const Content: FC<ContentPropsType> = ({ filteredClothing }) => {
-    const clothing = filteredClothing.map(({ brand, color, description, price, id }, i) => {
+const Content: FC<ContentPropsType> = ({ filteredClothing, changeLikeStatus }) => {
+    const clothing = filteredClothing.map(({ brand, color, description, price, id, liked }, i) => {
         return <ContentItems brand={brand} 
                              color={color} 
                              description={description} 
                              price={price}
                              key={id + i} 
-                             id={id}                  
+                             id={id}
+                             liked={liked}
+                             changeLikeStatus={changeLikeStatus}                  
                             />
     })
     return (
@@ -36,5 +40,10 @@ const mapStateToProps = (state: RootState) => {
         filteredClothing: filteredClothingData(state)
     }
 }
+const mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
+    return {
+        changeLikeStatus: (id: string) => dispatch(actions.changeLikeStatus(id))
+    }
+} 
 
-export default connect(mapStateToProps)(Content)
+export default connect(mapStateToProps, mapDispatchToProps)(Content)

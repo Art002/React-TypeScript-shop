@@ -14,7 +14,7 @@
 }
 .inCartLength {
     position: absolute;
-    top: 0;
+    top: 1px;
     left: 11px;
     color: #000000;
     font-weight: 700;

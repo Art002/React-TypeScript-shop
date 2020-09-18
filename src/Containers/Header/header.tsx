@@ -6,18 +6,21 @@ import { actions } from './../../Actions/actions';
 import Logo from './../../Components/Logo/logo';
 import Search from './../../Components/Search/search';
 import IconsBlock from './../../Components/HeaderIconsBlock/headerIconsBlock';
-import { inCartData } from './../../Selectors/selectors';
+import { inCartData, filteredClothingData } from './../../Selectors/selectors';
 import { InCartType } from './../../Reducers/cart';
+import { ClothingItemType } from './../../Reducers/mainContent';
 import classes from './header.module.css';
 
 type MapStatePropsType = {
     inCartData: Array<InCartType>
+    filteredClothingData: Array<ClothingItemType>
 }
 type MapDispatchPropsType = {
     searchHandler: (e: any) => void
 }
 type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
-const Header: FC<HeaderPropsType> = ({ searchHandler, inCartData }) => {
+const Header: FC<HeaderPropsType> = ({ searchHandler, inCartData, filteredClothingData }) => {
+    const likesCount = filteredClothingData.filter(item => item.liked)
     const inStorage = localStorage.getItem('id')
     const isLoggedIn = inStorage ? '/profile' : '/login'
     return (
@@ -25,7 +28,7 @@ const Header: FC<HeaderPropsType> = ({ searchHandler, inCartData }) => {
             <div className={classes.container}>
                 <Logo />
                 <Search searchHandler={searchHandler}/>
-                <IconsBlock inCartLength={inCartData.length} isLoggedIn={isLoggedIn}/>
+                <IconsBlock inCartLength={inCartData.length} likesCountLength={likesCount.length} isLoggedIn={isLoggedIn}/>
             </div>
         <hr className={classes.borderBottom}/>
         </div>
@@ -33,7 +36,8 @@ const Header: FC<HeaderPropsType> = ({ searchHandler, inCartData }) => {
 }
 const MapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        inCartData: inCartData(state)
+        inCartData: inCartData(state),
+        filteredClothingData: filteredClothingData(state)
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {

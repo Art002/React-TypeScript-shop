@@ -88,7 +88,7 @@ export const saveUsersOrder = (): ThunkActionType<ActionsType> => {
             const currentUser: any = users.find(item => item.id === localId)
             const currentUserIndex = users.findIndex(item => item.id === localId)
             const inCart = getState().cart.inCart
-            if(currentUser.orderHistory[0] == "'"){
+            if(currentUser.orderHistory[0] === "'"){
                 const newUsersData = {...currentUser, orderHistory: [...inCart]}
                 users[currentUserIndex] = {...newUsersData}
                 changeUsersOrderHistory(users)
@@ -123,6 +123,7 @@ export const actions = {
         const value = e.target.value
         return {type: 'SEARCH_HANDLER', value} as const
     },
+    changeLikeStatus: (id: string) => ({type: 'CHANGE_LIKE_STATUS', id} as const)
 }
 
 

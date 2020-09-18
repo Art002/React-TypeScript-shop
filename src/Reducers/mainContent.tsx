@@ -54,6 +54,19 @@ switch(action.type){
             ...state,
             filteredClothing: state.clothing.filter((item) => item.description.toLowerCase().includes(action.value.toLowerCase()) )
         }
+    case 'CHANGE_LIKE_STATUS':
+        return {
+            ...state,
+            filteredClothing: state.filteredClothing.map(item => {
+                if(item.id === action.id){
+                    return {
+                        ...item,
+                        liked: !item.liked
+                    }
+                }
+                return item
+            })
+        }
     default:
         return state
 }
