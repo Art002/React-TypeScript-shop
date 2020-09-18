@@ -1,0 +1,21 @@
+.profileSidebarList {
+    list-style: none;
+    font-size: 18px;
+}
+.profileSidebarList li {
+    text-align: left;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.profileSidebarList li svg {
+    margin-right: 10px;
+    color: #ccbb44;
+}
+.profileSidebar {
+    width: 25%;
+}
+.total {
+    margin-top: 25px;
+    font-size: 16px;
+}

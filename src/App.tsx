@@ -34,7 +34,7 @@ const App: FC<AppPropsType> = ({getClothing, getCategories, isLoaded}) => {
   useEffect(() => {
     getCategories()
   }, [])
-  const isLogedIn = localStorage.getItem('id')
+  
   return (
     !isLoaded 
     ? <Preloder /> 

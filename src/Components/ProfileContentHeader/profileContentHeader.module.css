@@ -1,0 +1,22 @@
+.imgBlock {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+.statusBlock {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+.sumBlock {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+.profileContentHeader {
+    display: flex;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    font-weight: 500;
+}

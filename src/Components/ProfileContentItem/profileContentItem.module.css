@@ -1,0 +1,47 @@
+.imgBlock {
+    display: flex;
+    width: 60%;
+}
+.imgBlock img {
+    width: 180px;
+}
+.imgBlockInfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.imgBlockInfoName {
+    height: 50%;
+    font-size: 17px;
+    font-weight: 500;
+    text-align: left;
+}
+.imgBlockInfoPrice {
+    height: 50%;
+    display: flex;
+    align-self: self-end;
+    align-items: center;
+    color: grey;
+}
+.colorBlock {
+    font-weight: 400;
+    margin-top: 10px;
+}
+.profileContentItem {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid grey;
+}
+.profileContentItem:last-of-type {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.statusBlock {
+    width: 20%;
+}
+.sumBlock {
+    width: 20%;
+}

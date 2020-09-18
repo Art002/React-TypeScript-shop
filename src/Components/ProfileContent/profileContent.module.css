@@ -1,0 +1,17 @@
+.profileContent {
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+.imgBlock {
+    display: flex;
+    width: 60%;
+}
+.statusBlock {
+    width: 20%;
+}
+.sumBlock {
+    width: 20%;
+}
+.container {
+    width: 75%;
+}
