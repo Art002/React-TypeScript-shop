@@ -2,20 +2,25 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import PersonIcon from '@material-ui/icons/Person';
 import classes from './headerIconsBlock.module.css';
 
 type HeaderIconsBlockPropsType = {
     inCartLength: number
     likesCountLength: number
-    isLoggedIn: string
+    inStorage: string | null
 }
-const HeaderIconsBlock: FC<HeaderIconsBlockPropsType> = ({ inCartLength, isLoggedIn, likesCountLength }) => {
+const HeaderIconsBlock: FC<HeaderIconsBlockPropsType> = ({ inCartLength, inStorage, likesCountLength }) => {
     return (
         <div className={classes.headerIconsBlock}>
-            <NavLink to={isLoggedIn}>
+            {inStorage
+            ? <NavLink to='/profile'>
                 <span><PersonIcon /></span>
-            </NavLink>
+              </NavLink>
+            : <NavLink to='/login'>
+                <span><AssignmentIndIcon /></span>
+              </NavLink>}
             <span>
             <NavLink to='/liked'>
                 <div className={classes.inCartLength}>

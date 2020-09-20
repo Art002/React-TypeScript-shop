@@ -1,18 +1,23 @@
 import React, { FC, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { Form, Input, Button } from 'antd';
+import { RouteComponentProps } from "react-router";
+import { Form, Input, Button, notification  } from 'antd';
 import { ActionsType } from './../../Reducers/rootReducers';
 import { auth, logIn } from './../../Actions/actions';
 import classes from './login.module.css';
 
 type MapDispatchPropsType = {
     auth: (email: string, password: string) => void
-    logIn: (email: string, password: string) => void
+    logIn: (email: string, password: string, history: any) => void
 }
-type LoginType = MapDispatchPropsType
+type LoginPageParams = {
+    id: string
+}
+type TransportPageRouterProps = RouteComponentProps<LoginPageParams>
+type LoginType = MapDispatchPropsType & TransportPageRouterProps
 
-const Login: FC<LoginType> = ({ auth, logIn }) => {
+const Login: FC<LoginType> = ({ auth, logIn, history }) => {
     const [form] = Form.useForm();
     const [errMsg, setErrMsg] = useState('')
     const layout = {
@@ -32,9 +37,17 @@ const Login: FC<LoginType> = ({ auth, logIn }) => {
             range: '${label} must be between ${min} and ${max}',
         }
     }
+    const openNotification = () => {
+        notification.open({
+          message: 'Регистрация прошла успешно!',
+          description: 'Вы можете войти на сайт со своим паролем!',
+          top: 104,
+          style: {color: 'green'}
+        })
+    }
     const onSignIn = () => {
         const values = form.getFieldsValue()
-        logIn(values.Email, values.password)
+        logIn(values.Email, values.password, history)
     }
     const onSignUp = () => {
         const values = form.getFieldsValue()
@@ -42,6 +55,7 @@ const Login: FC<LoginType> = ({ auth, logIn }) => {
             auth(values.Email, values.password)
             setErrMsg('')
             form.resetFields()
+            openNotification()
         }else {
             setErrMsg('Заполните все поля!')
         }  
@@ -88,7 +102,7 @@ const Login: FC<LoginType> = ({ auth, logIn }) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, ActionsType>) => {
     return {
         auth: (email: string, password: string) => dispatch(auth(email, password)),
-        logIn: (email: string, password: string) => dispatch(logIn(email, password))
+        logIn: (email: string, password: string, history: any) => dispatch(logIn(email, password, history))
     }
 } 
 

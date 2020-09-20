@@ -22,13 +22,15 @@ type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
 const Header: FC<HeaderPropsType> = ({ searchHandler, inCartData, filteredClothingData }) => {
     const likesCount = filteredClothingData.filter(item => item.liked)
     const inStorage = localStorage.getItem('id')
-    const isLoggedIn = inStorage ? '/profile' : '/login'
+    //const isLoggedIn = inStorage ? '/profile' : '/login'
     return (
         <div className={classes.header}>
             <div className={classes.container}>
                 <Logo />
                 <Search searchHandler={searchHandler}/>
-                <IconsBlock inCartLength={inCartData.length} likesCountLength={likesCount.length} isLoggedIn={isLoggedIn}/>
+                <IconsBlock inCartLength={inCartData.length} 
+                            likesCountLength={likesCount.length} 
+                            inStorage={inStorage}/>
             </div>
         <hr className={classes.borderBottom}/>
         </div>

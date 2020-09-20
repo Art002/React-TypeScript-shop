@@ -16,7 +16,7 @@ type MapStateToPropsType = {
 }
 type ContentPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-const Content: FC<ContentPropsType> = ({ filteredClothing, changeLikeStatus }) => {
+const Content: FC<ContentPropsType> = React.memo(({ filteredClothing, changeLikeStatus }) => {
     const clothing = filteredClothing.map(({ brand, color, description, price, id, liked }, i) => {
         return <ContentItems brand={brand} 
                              color={color} 
@@ -33,7 +33,7 @@ const Content: FC<ContentPropsType> = ({ filteredClothing, changeLikeStatus }) =
             {clothing.length !== 0 ? clothing : <p className={classes.emptyCategory}>В этой категории нет товаров</p>}
         </div>
     )
-}
+})
 
 const mapStateToProps = (state: RootState) => {
     return {

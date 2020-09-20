@@ -6,13 +6,10 @@ import { ClothingItemType } from './../../Reducers/mainContent';
 import LikedItems from './../../Components/LikedItems/likedItems';
 import classes from './liked.module.css';
 
-type MapDispatchToPropsType = {
-    
-}
 type MapStateToPropsType = {
     filteredClothingData: Array<ClothingItemType>
 }
-type LikedPropsType = MapDispatchToPropsType & MapStateToPropsType
+type LikedPropsType = MapStateToPropsType
 const Liked: FC<LikedPropsType> = ({ filteredClothingData }) => {
     const likedItems = filteredClothingData.map(({ brand, color, description, price, id, liked }, i) => {
         if(liked){

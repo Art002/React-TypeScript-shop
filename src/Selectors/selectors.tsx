@@ -1,4 +1,5 @@
 import { RootState } from './../Reducers/rootReducers';
+import { createSelector } from 'reselect'
 
 export const clothingData = (state: RootState) => {
     return state.mainContent.clothing
@@ -15,3 +16,6 @@ export const filteredClothingData = (state: RootState) => {
 export const inCartData = (state: RootState) => {
     return state.cart.inCart
 }
+export const categoryReselector = createSelector(categoryData, (categories) => {
+        return categories
+    })

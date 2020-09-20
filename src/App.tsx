@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from 'react';
+import React, { useEffect, FC, Suspense } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -7,17 +7,17 @@ import Cart from './Containers/Cart/cart';
 import Content from './Containers/Content/content';
 import Filter from './Containers/Filter/filter';
 import Header from './Containers/Header/header';
-import Profile from './Containers/Profile/profile';
 import Slider from './Components/Slider/slider';
 import Preloder from './Components/Loading/loading';
 import ItemPage from './Containers/ItemPage/itemPage';
-import Login from './Containers/Login/login';
-import likedItems from './Containers/Liked/liked';
 import { isLoadedData } from './Selectors/selectors';
 import { getClothing, getCategories } from './Actions/actions';
 import { RootState, ActionsType } from './Reducers/rootReducers';
 import './App.css';
 
+const Profile = React.lazy(() => import('./Containers/Profile/profile'));
+const Login = React.lazy(() => import('./Containers/Login/login')) 
+const Liked = React.lazy(() => import('./Containers/Liked/liked'))
 
 type MapDispatchToPropsType = {
   getClothing: () => Promise<void>,
@@ -46,9 +46,11 @@ const App: FC<AppPropsType> = ({getClothing, getCategories, isLoaded}) => {
         <Route exact path='/' component={Content}/>
         <Route exact path='/:id' component={ItemPage}/>
         <Route path='/cart' component={Cart}/>
-        <Route path='/profile' component={Profile}/>
-        <Route path='/login' component={Login}/>
-        <Route path='/liked' component={likedItems}/>     
+        <Suspense fallback={<Preloder />}>
+          <Route path='/profile' component={Profile}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/liked' component={Liked}/>
+        </Suspense>     
       </div> 
   )
 }

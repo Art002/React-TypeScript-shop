@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
+import { withRouter, RouteComponentProps } from "react-router";
 import ProfileSidebar from './../../Components/ProfileSidebar/profileSidebar';
 import { getUsers } from './../../FetchData/fetchData';
 import { CurrentUserType } from './../../Actions/actions';
@@ -6,7 +7,12 @@ import Preloder from './../../Components/Loading/loading';
 import ProfileContent from './../../Components/ProfileContent/profileContent';
 import classes from './profile.module.css';
 
-const Profile = () => {
+type ProfilePageParams = {
+    id: string
+}
+type ProfilePageRouterProps = RouteComponentProps<ProfilePageParams>
+const Profile: FC<ProfilePageRouterProps> = ({ history }) => {
+    const localId = localStorage.getItem('id')
     const [users, setUsers] = useState<Array<CurrentUserType>>([])
     const [isLoaded, setLoaded] = useState(false)
     const fetchUsers = async () => {
@@ -18,7 +24,6 @@ const Profile = () => {
     useEffect(() => {
        fetchUsers()
     },[])
-    const localId = localStorage.getItem('id')
     const user = users.find(item => item.id === localId) as CurrentUserType
     
     return (
@@ -32,4 +37,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default withRouter(Profile)

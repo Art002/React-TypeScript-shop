@@ -9,7 +9,6 @@ type ProfileSidebarPropsType = {
 }
 const ProfileSidebar: FC<ProfileSidebarPropsType> = ({ user }) => {
     const totalSum = user.orderHistory.reduce((sum, item) => sum + item.price, 0)
-    console.log(totalSum)
     return (
         <div className={classes.profileSidebar}>
             <ul className={classes.profileSidebarList}>

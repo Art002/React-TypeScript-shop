@@ -64,12 +64,15 @@ export const auth = (email: string, password: string): ThunkActionType<ActionsTy
         
     }
 }
-export const logIn = (email: string, password: string): ThunkActionType<ActionsType> => {
+export const logIn = (email: string, password: string, history: any): ThunkActionType<ActionsType> => {
     return async () => {
         try {
             const params: ParamsType = {email, password, returnSecureToken: true}
             const response = await signIn(params)
             saveDataInLocalStorage(response)
+            if(response.status === 200){
+                history.push('/')
+            }
         }catch(e){
             
         }          
